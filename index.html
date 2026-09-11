@@ -50,20 +50,34 @@
         </div>
     </header>
     <main>
+        <!-- The Game Player Window - Embeds the HTML5 game container directly on your webpage layout -->
+        <section class="player-container" id="playerContainer">
+            <div class="player-header">
+                <h2 id="activeGameTitle">Loading Module...</h2>
+                <button class="close-btn" onclick="closeGame()">Close Window ✕</button>
+            </div>
+            <div class="iframe-wrapper">
+                <iframe id="gameIframe" src="" allowfullscreen scrolling="no" allow="autoplay; gamepad *; fullscreen *;"></iframe>
+            </div>
+        </section>
+
         <h2 style="margin-bottom: 1.5rem; border-left: 4px solid var(--accent-color); padding-left: 0.5rem;">Applications Library</h2>
         <section class="games-grid" id="gamesGrid"></section>
     </main>
     <footer>&copy; 2026 TFLOL Hub. Personal deployment portal.</footer>
     <script>
-        // Game array updated with the working web port link
+        // Updated database reference to your exact found GitHub source link
         const games = [{
             title: "Deltarune Web Port",
             category: "RPG",
             emoji: "❤️",
-            url: "https://melonplayground.lol"
+            url: "https://mollomm1.github.io/test"
         }];
         
         const gamesGrid = document.getElementById('gamesGrid');
+        const playerContainer = document.getElementById('playerContainer');
+        const gameIframe = document.getElementById('gameIframe');
+        const activeGameTitle = document.getElementById('activeGameTitle');
 
         function loadGames(gamesToRender) {
             gamesGrid.innerHTML = "";
@@ -74,7 +88,7 @@
             gamesToRender.forEach(game => {
                 const card = document.createElement('div');
                 card.className = 'game-card';
-                card.onclick = () => window.open(game.url, '_blank');
+                card.onclick = () => launchGame(game.title, game.url);
                 card.innerHTML = `
                     <div class="game-thumb">${game.emoji}</div>
                     <div class="game-info">
@@ -83,6 +97,18 @@
                     </div>`;
                 gamesGrid.appendChild(card);
             });
+        }
+
+        function launchGame(title, url) {
+            activeGameTitle.textContent = title;
+            gameIframe.src = url;
+            playerContainer.style.display = "block";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function closeGame() {
+            playerContainer.style.display = "none";
+            gameIframe.src = "";
         }
         
         function filterGames() {
@@ -98,3 +124,4 @@
     </script>
 </body>
 </html>
+
