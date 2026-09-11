@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- FIXED: Capitalized the U in Unblocker for a cleaner tab design -->
     <title>TFLOL Unblocker</title>
     
-    <link rel="icon" type="image/png" href="image_DVjCen.PNG">
-    <link rel="shortcut icon" type="image/png" href="image_DVjCen.PNG">
+    <!-- FIXED: Using the exact lowercase relative paths matching your file name -->
+    <link rel="icon" type="image/png" href="./image_DVjCen.png">
+    <link rel="shortcut icon" type="image/png" href="./image_DVjCen.png">
     
     <style>
         :root {
@@ -29,13 +29,19 @@
         .search-container input { width: 100%; padding: 0.6rem 1rem; border-radius: 20px; border: 1px solid var(--border-color); background-color: #000000; color: var(--text-color); outline: none; transition: all 0.3s; }
         .search-container input:focus { border-color: var(--accent-color); box-shadow: 0 0 8px rgba(229, 9, 20, 0.3); }
         main { flex: 1; padding: 2rem; max-width: 1200px; width: 100%; margin: 0 auto; }
+        
+        /* Fixed Hidden Engine Container */
         .player-container { display: none; background-color: #000000; border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 2rem; overflow: hidden; }
         .iframe-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
         .iframe-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        
+        /* Control Bar Strip Below the Game Window */
         .player-bar { background-color: var(--container-color); padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); }
         .player-title { font-size: 1.05rem; font-weight: 600; color: #ffffff; }
         .fs-btn { background-color: #000000; color: #ffffff; border: 1px solid var(--border-color); padding: 0.5rem 1.2rem; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: bold; transition: all 0.2s; }
         .fs-btn:hover { background-color: var(--accent-color); border-color: var(--accent-color); box-shadow: 0 0 8px rgba(229, 9, 20, 0.4); }
+        
+        /* Library Grid Options */
         .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.5rem; }
         .game-card { background-color: var(--container-color); border-radius: 10px; overflow: hidden; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--border-color); }
         .game-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(229, 9, 20, 0.25); border-color: var(--accent-color); }
@@ -50,8 +56,8 @@
 <body>
     <header>
         <div class="logo-container">
-            <img src="image_DVjCen.PNG" alt="Logo" class="custom-logo">
-            <!-- FIXED: Capitalized the U here too for the website main heading -->
+            <!-- FIXED: Changed path to match the lowercase format here too -->
+            <img src="./image_DVjCen.png" alt="Logo" class="custom-logo">
             <span class="logo-text">TFLOL Unblocker</span>
         </div>
         <div class="search-container">
@@ -78,7 +84,7 @@
             title: "Deltarune Web Port",
             category: "RPG",
             htmlContent: '<div class="heart-icon">❤️</div>',
-            url: "https://gamedistribution.com"
+            url: "https://github.io"
         }];
         
         const gamesGrid = document.getElementById('gamesGrid');
@@ -148,3 +154,4 @@
     </script>
 </body>
 </html>
+
