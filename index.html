@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>TFLOL unblocker</title>
     <link rel="icon" type="image/png" href="image_DVjCen.png">
     <link rel="shortcut icon" type="image/png" href="image_DVjCen.png">
-    
     <style>
         :root {
             --bg-color: #050508;
@@ -28,7 +26,18 @@
         .search-container input:focus { border-color: var(--accent-color); box-shadow: 0 0 8px rgba(229, 9, 20, 0.3); }
         main { flex: 1; padding: 2rem; max-width: 1200px; width: 100%; margin: 0 auto; }
         
-        /* Games Grid Layout */
+        /* Fixed Hidden Engine Container */
+        .player-container { display: none; background-color: #000000; border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 2rem; overflow: hidden; }
+        .iframe-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
+        .iframe-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        
+        /* Control Bar Strip Below the Game Window */
+        .player-bar { background-color: var(--container-color); padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); }
+        .player-title { font-size: 1.05rem; font-weight: 600; color: #ffffff; }
+        .fs-btn { background-color: #000000; color: #ffffff; border: 1px solid var(--border-color); padding: 0.5rem 1.2rem; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: bold; transition: all 0.2s; }
+        .fs-btn:hover { background-color: var(--accent-color); border-color: var(--accent-color); box-shadow: 0 0 8px rgba(229, 9, 20, 0.4); }
+        
+        /* Library Grid Options */
         .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.5rem; }
         .game-card { background-color: var(--container-color); border-radius: 10px; overflow: hidden; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--border-color); }
         .game-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(229, 9, 20, 0.25); border-color: var(--accent-color); }
@@ -51,20 +60,35 @@
         </div>
     </header>
     <main>
+        <!-- The Game Player Window Structure -->
+        <section class="player-container" id="playerContainer">
+            <div class="iframe-wrapper">
+                <iframe id="gameIframe" src="" allowfullscreen scrolling="no" allow="autoplay; gamepad *; fullscreen *;"></iframe>
+            </div>
+            <!-- Bottom Panel bar strip holding the Fullscreen configuration button -->
+            <div class="player-bar">
+                <span class="player-title" id="activeGameTitle">Deltarune Web Port</span>
+                <button class="fs-btn" onclick="goFullscreen()">⛶ Fullscreen</button>
+            </div>
+        </section>
+
         <h2 style="margin-bottom: 1.5rem; border-left: 4px solid var(--accent-color); padding-left: 0.5rem;">Applications Library</h2>
         <section class="games-grid" id="gamesGrid"></section>
     </main>
     <footer>&copy; 2026 TFLOL Hub. Personal deployment portal.</footer>
     <script>
-        // Set to pull from the clean web assembly repository platform directly
+        // Directly mapped to the clean web deployment portal address
         const games = [{
             title: "Deltarune Web Port",
             category: "RPG",
             htmlContent: '<div class="heart-icon">❤️</div>',
-            url: "https://github.io"
+            url: "https://mollomm1.github.io/test/"
         }];
         
         const gamesGrid = document.getElementById('gamesGrid');
+        const playerContainer = document.getElementById('playerContainer');
+        const gameIframe = document.getElementById('gameIframe');
+        const activeGameTitle = document.getElementById('activeGameTitle');
 
         function loadGames(gamesToRender) {
             gamesGrid.innerHTML = "";
@@ -75,8 +99,7 @@
             gamesToRender.forEach(game => {
                 const card = document.createElement('div');
                 card.className = 'game-card';
-                // Fixed: Instantly breaks away from frame locks to launch the game cleanly full window
-                card.onclick = () => window.open(game.url, '_blank');
+                card.onclick = () => launchGame(game.title, game.url);
                 card.innerHTML = `
                     <div class="game-thumb">${game.htmlContent}</div>
                     <div class="game-info">
@@ -85,6 +108,22 @@
                     </div>`;
                 gamesGrid.appendChild(card);
             });
+        }
+
+        function launchGame(title, url) {
+            activeGameTitle.textContent = title;
+            gameIframe.src = url;
+            playerContainer.style.display = "block";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goFullscreen() {
+            const iframe = document.getElementById('gameIframe');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            }
         }
         
         function filterGames() {
@@ -100,4 +139,5 @@
     </script>
 </body>
 </html>
+
 
