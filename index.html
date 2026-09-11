@@ -67,12 +67,12 @@
             const titleEl = document.getElementById('tabTitle');
             const iconEl = document.getElementById('tabIcon');
             if (isMasked) {
-                // UNMASKED STATE: Sets tab details and changes tab icon to your logo file
+                // UNMASKED STATE: Changes the tab title and links directly to your uploaded logo file
                 titleEl.textContent = "TFLOL unblocker";
-                iconEl.href = "./image_DVjCen.png";
+                iconEl.href = "./image_DVjCen.png"; 
                 isMasked = false;
             } else {
-                // MASKED STATE: Restores Google Classroom disguise
+                // MASKED STATE: Reverts back to Google Classroom disguise
                 titleEl.textContent = "Home";
                 iconEl.href = "https://gstatic.com";
                 isMasked = true;
@@ -109,3 +109,4 @@
     </script>
 </body>
 </html>
+
