@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Default state starts with the disguise active -->
     <title id="tabTitle">Home</title>
     <link id="tabIcon" rel="icon" type="image/x-icon" href="https://gstatic.com">
     <style>
@@ -66,10 +67,12 @@
             const titleEl = document.getElementById('tabTitle');
             const iconEl = document.getElementById('tabIcon');
             if (isMasked) {
+                // UNMASKED STATE: Sets tab details and changes tab icon to your logo file
                 titleEl.textContent = "TFLOL unblocker";
-                iconEl.href = "data:image/svg+xml,<svg xmlns=%22http://w3.org viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>";
+                iconEl.href = "./image_DVjCen.png";
                 isMasked = false;
             } else {
+                // MASKED STATE: Restores Google Classroom disguise
                 titleEl.textContent = "Home";
                 iconEl.href = "https://gstatic.com";
                 isMasked = true;
@@ -84,7 +87,6 @@
             gamesToRender.forEach(game => {
                 const card = document.createElement('div');
                 card.className = 'game-card';
-                // Directly launches the unblocked link out of the iframe environment safely
                 card.onclick = () => window.open(game.url, '_blank');
                 card.innerHTML = `
                     <div class="game-thumb">${game.emoji}</div>
