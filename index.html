@@ -6,7 +6,7 @@
     
     <title>TFLOL Unblocker</title>
     
-    <!-- FIXED: Using the exact lowercase relative paths matching your file name -->
+    <!-- Permanent direct reference to your working lowercase logo filename -->
     <link rel="icon" type="image/png" href="./image_DVjCen.png">
     <link rel="shortcut icon" type="image/png" href="./image_DVjCen.png">
     
@@ -30,18 +30,18 @@
         .search-container input:focus { border-color: var(--accent-color); box-shadow: 0 0 8px rgba(229, 9, 20, 0.3); }
         main { flex: 1; padding: 2rem; max-width: 1200px; width: 100%; margin: 0 auto; }
         
-        /* Fixed Hidden Engine Container */
+        /* Hidden Game Box Frame Container Layout Rules */
         .player-container { display: none; background-color: #000000; border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 2rem; overflow: hidden; }
         .iframe-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
         .iframe-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         
-        /* Control Bar Strip Below the Game Window */
+        /* Control Bar Strip directly beneath running game screen */
         .player-bar { background-color: var(--container-color); padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); }
         .player-title { font-size: 1.05rem; font-weight: 600; color: #ffffff; }
         .fs-btn { background-color: #000000; color: #ffffff; border: 1px solid var(--border-color); padding: 0.5rem 1.2rem; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: bold; transition: all 0.2s; }
         .fs-btn:hover { background-color: var(--accent-color); border-color: var(--accent-color); box-shadow: 0 0 8px rgba(229, 9, 20, 0.4); }
         
-        /* Library Grid Options */
+        /* Library Selection Grid Options */
         .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.5rem; }
         .game-card { background-color: var(--container-color); border-radius: 10px; overflow: hidden; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--border-color); }
         .game-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(229, 9, 20, 0.25); border-color: var(--accent-color); }
@@ -56,7 +56,6 @@
 <body>
     <header>
         <div class="logo-container">
-            <!-- FIXED: Changed path to match the lowercase format here too -->
             <img src="./image_DVjCen.png" alt="Logo" class="custom-logo">
             <span class="logo-text">TFLOL Unblocker</span>
         </div>
@@ -65,6 +64,7 @@
         </div>
     </header>
     <main>
+        <!-- The Game Player Window Component -->
         <section class="player-container" id="playerContainer">
             <div class="iframe-wrapper">
                 <iframe id="gameIframe" src="" allowfullscreen scrolling="no" allow="autoplay; gamepad *; fullscreen *;"></iframe>
@@ -80,11 +80,12 @@
     </main>
     <footer>&copy; 2026 TFLOL Hub. Personal deployment portal.</footer>
     <script>
+        // LOCKED BACK IN: Re-mapped to the working WebAssembly deployment repository link node
         const games = [{
             title: "Deltarune Web Port",
             category: "RPG",
             htmlContent: '<div class="heart-icon">❤️</div>',
-            url: "https://github.io"
+            url: "https://mollomm1.github.io/test/"
         }];
         
         const gamesGrid = document.getElementById('gamesGrid');
@@ -118,6 +119,7 @@
             playerContainer.style.display = "block";
             window.scrollTo({ top: 0, behavior: 'smooth' });
             
+            // Forces input focus directly into the active engine layout frame upon card click
             gameIframe.onload = function() {
                 setTimeout(() => {
                     gameIframe.contentWindow.focus();
