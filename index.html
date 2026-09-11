@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="tabTitle">Home</title>
-    <link id="tabIcon" rel="icon" type="image/x-icon" href="https://gstatic.com">
+    
+    <!-- Permanently set to your custom title and GitHub logo asset -->
+    <title>TFLOL unblocker</title>
+    <link rel="icon" type="image/png" href="https://github.io">
+    
     <style>
         :root {
             --bg-color: #050508;
@@ -23,8 +26,6 @@
         .search-container { flex: 0 1 400px; }
         .search-container input { width: 100%; padding: 0.6rem 1rem; border-radius: 20px; border: 1px solid var(--border-color); background-color: #000000; color: var(--text-color); outline: none; transition: all 0.3s; }
         .search-container input:focus { border-color: var(--accent-color); box-shadow: 0 0 8px rgba(229, 9, 20, 0.3); }
-        .toggle-btn { background-color: #000000; color: var(--text-color); border: 1px solid var(--border-color); padding: 0.6rem 1rem; border-radius: 20px; cursor: pointer; font-size: 0.85rem; transition: all 0.2s; white-space: nowrap; }
-        .toggle-btn:hover { border-color: var(--accent-color); background-color: #1a0505; }
         main { flex: 1; padding: 2rem; max-width: 1200px; width: 100%; margin: 0 auto; }
         .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.5rem; }
         .game-card { background-color: var(--container-color); border-radius: 10px; overflow: hidden; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--border-color); }
@@ -45,7 +46,6 @@
         <div class="search-container">
             <input type="text" id="searchBar" placeholder="Search available apps..." onkeyup="filterGames()">
         </div>
-        <button class="toggle-btn" onclick="toggleMasking()">🎭 Toggle Tab Mask</button>
     </header>
     <main>
         <h2 style="margin-bottom: 1.5rem; border-left: 4px solid var(--accent-color); padding-left: 0.5rem;">Applications Library</h2>
@@ -59,25 +59,9 @@
             emoji: "❤️",
             url: "https://github.io"
         }];
+        
         const gamesGrid = document.getElementById('gamesGrid');
-        let isMasked = true;
 
-        function toggleMasking() {
-            const titleEl = document.getElementById('tabTitle');
-            const iconEl = document.getElementById('tabIcon');
-            if (isMasked) {
-                titleEl.textContent = "TFLOL unblocker";
-                
-                // Hardcoded to your live repository image address
-                iconEl.href = "https://github.io";
-                
-                isMasked = false;
-            } else {
-                titleEl.textContent = "Home";
-                iconEl.href = "https://gstatic.com";
-                isMasked = true;
-            }
-        }
         function loadGames(gamesToRender) {
             gamesGrid.innerHTML = "";
             if (gamesToRender.length === 0) {
@@ -97,6 +81,7 @@
                 gamesGrid.appendChild(card);
             });
         }
+        
         function filterGames() {
             const query = document.getElementById('searchBar').value.toLowerCase();
             const filtered = games.filter(game => 
@@ -105,6 +90,7 @@
             );
             loadGames(filtered);
         }
+        
         loadGames(games);
     </script>
 </body>
