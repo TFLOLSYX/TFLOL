@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Default state starts with the disguise active -->
     <title id="tabTitle">Home</title>
     <link id="tabIcon" rel="icon" type="image/x-icon" href="https://gstatic.com">
     <style>
@@ -67,12 +66,13 @@
             const titleEl = document.getElementById('tabTitle');
             const iconEl = document.getElementById('tabIcon');
             if (isMasked) {
-                // UNMASKED STATE: Changes the tab title and links directly to your uploaded logo file
                 titleEl.textContent = "TFLOL unblocker";
-                iconEl.href = "./image_DVjCen.png"; 
+                
+                // Hardcoded to your live repository image address
+                iconEl.href = "https://github.io";
+                
                 isMasked = false;
             } else {
-                // MASKED STATE: Reverts back to Google Classroom disguise
                 titleEl.textContent = "Home";
                 iconEl.href = "https://gstatic.com";
                 isMasked = true;
@@ -109,4 +109,5 @@
     </script>
 </body>
 </html>
+
 
