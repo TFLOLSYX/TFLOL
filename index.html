@@ -6,8 +6,8 @@
     
     <title>TFLOL Unblocker</title>
     
-    <link rel="icon" type="image/png" href="./image_DVjCen.png">
-    <link rel="shortcut icon" type="image/png" href="./image_DVjCen.png">
+    <link type="image/png" rel="icon" href="./image_DVjCen.png">
+    <link type="image/png" rel="shortcut icon" href="./image_DVjCen.png">
     
     <style>
         :root {
@@ -35,6 +35,7 @@
         
         .player-bar { background-color: var(--container-color); padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); }
         .player-title { font-size: 1.05rem; font-weight: 600; color: #ffffff; }
+        .player-controls { display: flex; gap: 0.8rem; }
         .fs-btn { background-color: #000000; color: #ffffff; border: 1px solid var(--border-color); padding: 0.5rem 1.2rem; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: bold; transition: all 0.2s; }
         .fs-btn:hover { background-color: var(--accent-color); border-color: var(--accent-color); box-shadow: 0 0 8px rgba(229, 9, 20, 0.4); }
         
@@ -66,7 +67,10 @@
             </div>
             <div class="player-bar">
                 <span class="player-title" id="activeGameTitle">Deltarune Web Port</span>
-                <button class="fs-btn" onclick="goFullscreen()">⛶ Fullscreen</button>
+                <div class="player-controls">
+                    <button class="fs-btn" onclick="backToHome()">← Back to Home</button>
+                    <button class="fs-btn" onclick="goFullscreen()">⛶ Fullscreen</button>
+                </div>
             </div>
         </section>
 
@@ -128,6 +132,11 @@
             };
         }
 
+        function backToHome() {
+            playerContainer.style.display = "none";
+            gameIframe.src = "";
+        }
+
         function goFullscreen() {
             const iframe = document.getElementById('gameIframe');
             if (iframe.requestFullscreen) {
@@ -150,5 +159,4 @@
     </script>
 </body>
 </html>
-
 
