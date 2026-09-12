@@ -58,13 +58,15 @@
         .game-title { font-size: 1rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .game-category { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem; }
         
-        /* Updated Dedicated Credits Viewport - Opens full screen exactly like a game */
+        /* Separate Fullscreen Dedicated Credits Viewport */
         .credits-overlay-screen { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #050508; z-index: 100000; flex-direction: column; }
         .credits-overlay-screen.active { display: flex; }
         .credits-view-wrapper { flex: 1; width: 100%; display: flex; justify-content: center; align-items: center; padding: 2rem; background: radial-gradient(circle at center, #120202 0%, #050508 100%); }
-        .credits-board { background-color: var(--container-color); border: 2px solid var(--border-color); border-radius: 16px; padding: 3rem; text-align: center; max-width: 500px; width: 90%; box-shadow: 0 0 30px rgba(229, 9, 20, 0.2); }
+        .credits-board { background-color: var(--container-color); border: 2px solid var(--border-color); border-radius: 16px; padding: 2.5rem; text-align: center; max-width: 600px; width: 95%; box-shadow: 0 0 30px rgba(229, 9, 20, 0.2); }
         .credits-header-title { font-size: 2rem; font-weight: bold; color: var(--accent-color); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 15px rgba(229, 9, 20, 0.4); }
-        .credits-list-item { font-size: 1.3rem; color: var(--text-color); }
+        .credits-list { display: flex; flex-direction: column; gap: 1rem; text-align: left; max-width: 450px; margin: 0 auto; }
+        .credits-list-item { font-size: 1.15rem; color: var(--text-color); line-height: 1.4; border-bottom: 1px solid dashed var(--border-color); padding-bottom: 0.5rem; }
+        .credits-list-item:last-child { border-bottom: none; }
         .credits-list-item strong { color: var(--accent-color); }
         
         footer { background-color: var(--container-color); text-align: center; padding: 1rem; font-size: 0.9rem; color: var(--text-secondary); border-top: 2px solid var(--border-color); margin-top: auto; }
@@ -102,12 +104,17 @@
         </div>
     </section>
 
-    <!-- New Full Viewport Separate Credits Page Component Window -->
+    <!-- Full Viewport Separate Credits Page Component Window -->
     <section class="credits-overlay-screen" id="creditsOverlay">
         <div class="credits-view-wrapper">
             <div class="credits-board">
                 <div class="credits-header-title">Project Credits</div>
-                <div class="credits-list-item"><strong>Lead Dev:</strong> TFLOLSYX</div>
+                <div class="credits-list">
+                    <div class="credits-list-item"><strong>Lead Dev:</strong> TFLOLSYX</div>
+                    <div class="credits-list-item"><strong>Mario64 distributer:</strong> reyuki/yukios</div>
+                    <div class="credits-list-item"><strong>deltarune webport creator:</strong> Mollommi</div>
+                    <div class="credits-list-item"><strong>web dasher creators:</strong> aloaf, Lasokar, and PinkDev</div>
+                </div>
             </div>
         </div>
         <div class="player-bar">
@@ -213,4 +220,3 @@
     </script>
 </body>
 </html>
-
