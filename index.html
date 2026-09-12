@@ -6,6 +6,7 @@
     
     <title>TFLOL Unblocker</title>
     
+    <!-- Permanent direct reference to your working lowercase logo filename -->
     <link rel="icon" type="image/png" href="./image_DVjCen.png">
     <link rel="shortcut icon" type="image/png" href="./image_DVjCen.png">
     
@@ -19,7 +20,7 @@
             --text-secondary: #a3a3a3;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
+        body { background-color: var(--bg-color); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; position: relative; }
         header { background-color: var(--container-color); padding: 0.8rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); gap: 1rem; }
         .logo-container { display: flex; align-items: center; gap: 0.8rem; }
         .custom-logo { height: 35px; width: auto; max-width: 45px; object-fit: contain; display: block; }
@@ -29,16 +30,18 @@
         .search-container input:focus { border-color: var(--accent-color); box-shadow: 0 0 8px rgba(229, 9, 20, 0.3); }
         main { flex: 1; padding: 2rem; max-width: 1200px; width: 100%; margin: 0 auto; }
         
+        /* Hidden Game Box Frame Container Layout Rules */
         .player-container { display: none; background-color: #000000; border: 1px solid var(--border-color); border-radius: 12px; margin-bottom: 2rem; overflow: hidden; }
         .iframe-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
         .iframe-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         
+        /* Control Bar Strip directly beneath running game screen */
         .player-bar { background-color: var(--container-color); padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); }
         .player-title { font-size: 1.05rem; font-weight: 600; color: #ffffff; }
-        .player-controls { display: flex; gap: 0.8rem; }
         .fs-btn { background-color: #000000; color: #ffffff; border: 1px solid var(--border-color); padding: 0.5rem 1.2rem; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: bold; transition: all 0.2s; }
         .fs-btn:hover { background-color: var(--accent-color); border-color: var(--accent-color); box-shadow: 0 0 8px rgba(229, 9, 20, 0.4); }
         
+        /* Library Selection Grid Options */
         .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.5rem; }
         .game-card { background-color: var(--container-color); border-radius: 10px; overflow: hidden; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--border-color); }
         .game-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(229, 9, 20, 0.25); border-color: var(--accent-color); }
@@ -47,6 +50,12 @@
         .game-info { padding: 0.8rem; }
         .game-title { font-size: 1rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .game-category { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem; }
+        
+        /* Floating Widget Credits Overlay Separated From Main Content */
+        .floating-credits { position: fixed; bottom: 4.5rem; right: 1.5rem; background-color: var(--container-color); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.6rem 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.6); z-index: 9999; }
+        .credits-text-label { font-size: 0.8rem; text-transform: uppercase; color: var(--accent-color); letter-spacing: 0.5px; font-weight: bold; margin-bottom: 2px; }
+        .credits-developer { font-size: 0.9rem; font-weight: 600; color: var(--text-color); }
+        
         footer { background-color: var(--container-color); text-align: center; padding: 1rem; font-size: 0.9rem; color: var(--text-secondary); border-top: 2px solid var(--border-color); margin-top: auto; }
     </style>
 </head>
@@ -61,44 +70,48 @@
         </div>
     </header>
     <main>
+        <!-- The Game Player Window Component -->
         <section class="player-container" id="playerContainer">
             <div class="iframe-wrapper">
                 <iframe id="gameIframe" src="" allowfullscreen scrolling="no" allow="autoplay; gamepad *; fullscreen *;"></iframe>
             </div>
             <div class="player-bar">
                 <span class="player-title" id="activeGameTitle">Deltarune Web Port</span>
-                <div class="player-controls">
-                    <button class="fs-btn" onclick="backToHome()">← Back to Home</button>
-                    <button class="fs-btn" onclick="goFullscreen()">⛶ Fullscreen</button>
-                </div>
+                <button class="fs-btn" onclick="goFullscreen()">⛶ Fullscreen</button>
             </div>
         </section>
 
         <h2 style="margin-bottom: 1.5rem; border-left: 4px solid var(--accent-color); padding-left: 0.5rem;">Applications Library</h2>
         <section class="games-grid" id="gamesGrid"></section>
     </main>
+
+    <!-- Isolated Floating Credits Widget Structure Component -->
+    <div class="floating-credits">
+        <div class="credits-text-label">Lead Dev</div>
+        <div class="credits-developer">TFLOLSYX</div>
+    </div>
+
     <footer>&copy; 2026 TFLOL Hub. Personal deployment portal.</footer>
     <script>
-        const games = [
-            {
-                title: "Deltarune Web Port",
-                category: "RPG",
-                htmlContent: '<div class="heart-icon">❤️</div>',
-                url: "https://mollomm1.github.io/test/"
-            },
-            {
-                title: "Mario 64 webport",
-                category: "Platformer",
-                htmlContent: '<div class="heart-icon">⭐</div>',
-                url: "./mario64.html"
-            },
-            {
-                title: "Geometry Dash",
-                category: "Platformer",
-                htmlContent: '<div class="heart-icon">🟨</div>',
-                url: "./geometrydash.html"
-            }
-        ];
+        // LOCKED BACK IN: Re-mapped to the working WebAssembly deployment repository link node
+        const games = [{
+            title: "Deltarune Web Port",
+            category: "RPG",
+            htmlContent: '<div class="heart-icon">❤️</div>',
+            url: "https://mollomm1.github.io/test/"
+        },
+        {
+            title: "Mario 64 webport",
+            category: "Platformer",
+            htmlContent: '⭐',
+            url: "./mario64.html"
+        },
+        {
+            title: "Geometry Dash",
+            category: "Platformer",
+            htmlContent: '🟨',
+            url: "./geometrydash.html"
+        }];
         
         const gamesGrid = document.getElementById('gamesGrid');
         const playerContainer = document.getElementById('playerContainer');
@@ -131,16 +144,12 @@
             playerContainer.style.display = "block";
             window.scrollTo({ top: 0, behavior: 'smooth' });
             
+            // Forces input focus directly into the active engine layout frame upon card click
             gameIframe.onload = function() {
                 setTimeout(() => {
                     gameIframe.contentWindow.focus();
                 }, 100);
             };
-        }
-
-        function backToHome() {
-            playerContainer.style.display = "none";
-            gameIframe.src = "";
         }
 
         function goFullscreen() {
@@ -152,8 +161,10 @@
             }
         }
 
+        // Initialize the library grid display on page load
         loadGames(games);
 
+        // Simple filtering function for the search layout
         function filterGames() {
             const query = document.getElementById('searchBar').value.toLowerCase();
             const filtered = games.filter(game => 
