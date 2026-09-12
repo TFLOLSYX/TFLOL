@@ -25,9 +25,14 @@
         .logo-container { display: flex; align-items: center; gap: 0.8rem; }
         .custom-logo { height: 35px; width: auto; max-width: 45px; object-fit: contain; display: block; }
         .logo-text { font-size: 1.5rem; font-weight: bold; color: var(--accent-color); text-shadow: 0 0 10px rgba(229, 9, 20, 0.4); white-space: nowrap; }
+        .header-controls { display: flex; align-items: center; gap: 1.5rem; flex: 0 1 600px; justify-content: flex-end; }
         .search-container { flex: 0 1 400px; }
         .search-container input { width: 100%; padding: 0.6rem 1rem; border-radius: 20px; border: 1px solid var(--border-color); background-color: #000000; color: var(--text-color); outline: none; transition: all 0.3s; }
         .search-container input:focus { border-color: var(--accent-color); box-shadow: 0 0 8px rgba(229, 9, 20, 0.3); }
+        
+        .credits-trigger-btn { background-color: transparent; color: var(--text-secondary); border: 1px solid var(--border-color); padding: 0.5rem 1.2rem; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.2s; white-space: nowrap; }
+        .credits-trigger-btn:hover { color: #ffffff; border-color: var(--accent-color); box-shadow: 0 0 8px rgba(229, 9, 20, 0.3); }
+        
         main { flex: 1; padding: 2rem; max-width: 1200px; width: 100%; margin: 0 auto; }
         
         /* Hidden Game Box Frame Container Layout Rules */
@@ -51,10 +56,15 @@
         .game-title { font-size: 1rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .game-category { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem; }
         
-        /* Floating Widget Credits Overlay Separated From Main Content */
-        .floating-credits { position: fixed; bottom: 4.5rem; right: 1.5rem; background-color: var(--container-color); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.6rem 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.6); z-index: 9999; }
-        .credits-text-label { font-size: 0.8rem; text-transform: uppercase; color: var(--accent-color); letter-spacing: 0.5px; font-weight: bold; margin-bottom: 2px; }
-        .credits-developer { font-size: 0.9rem; font-weight: 600; color: var(--text-color); }
+        /* Separate Fullscreen Dedicated Credits Overlay Window */
+        .credits-overlay-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(5, 5, 8, 0.98); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .credits-overlay-screen.active { opacity: 1; pointer-events: auto; }
+        .credits-board { background-color: var(--container-color); border: 2px solid var(--border-color); border-radius: 16px; padding: 3rem; text-align: center; max-width: 500px; width: 90%; box-shadow: 0 0 30px rgba(229, 9, 20, 0.2); }
+        .credits-header-title { font-size: 2rem; font-weight: bold; color: var(--accent-color); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 15px rgba(229, 9, 20, 0.4); }
+        .credits-list-item { font-size: 1.3rem; margin-bottom: 2rem; color: var(--text-color); }
+        .credits-list-item strong { color: var(--accent-color); }
+        .close-credits-btn { background-color: #000000; color: #ffffff; border: 1px solid var(--border-color); padding: 0.7rem 2rem; border-radius: 25px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: all 0.2s; }
+        .close-credits-btn:hover { background-color: var(--accent-color); border-color: var(--accent-color); box-shadow: 0 0 12px rgba(229, 9, 20, 0.5); }
         
         footer { background-color: var(--container-color); text-align: center; padding: 1rem; font-size: 0.9rem; color: var(--text-secondary); border-top: 2px solid var(--border-color); margin-top: auto; }
     </style>
@@ -65,8 +75,11 @@
             <img src="./image_DVjCen.png" alt="Logo" class="custom-logo">
             <span class="logo-text">TFLOL Unblocker</span>
         </div>
-        <div class="search-container">
-            <input type="text" id="searchBar" placeholder="Search available apps..." onkeyup="filterGames()">
+        <div class="header-controls">
+            <div class="search-container">
+                <input type="text" id="searchBar" placeholder="Search available apps..." onkeyup="filterGames()">
+            </div>
+            <button class="credits-trigger-btn" onclick="openCredits()">📝 Credits</button>
         </div>
     </header>
     <main>
@@ -85,10 +98,13 @@
         <section class="games-grid" id="gamesGrid"></section>
     </main>
 
-    <!-- Isolated Floating Credits Widget Structure Component -->
-    <div class="floating-credits">
-        <div class="credits-text-label">Lead Dev</div>
-        <div class="credits-developer">TFLOLSYX</div>
+    <!-- Isolated Fullscreen Credits Screen Window Component -->
+    <div class="credits-overlay-screen" id="creditsOverlay">
+        <div class="credits-board">
+            <div class="credits-header-title">Project Credits</div>
+            <div class="credits-list-item"><strong>Lead Dev:</strong> TFLOLSYX</div>
+            <button class="close-credits-btn" onclick="closeCredits()">× Close Credits</button>
+        </div>
     </div>
 
     <footer>&copy; 2026 TFLOL Hub. Personal deployment portal.</footer>
@@ -117,6 +133,7 @@
         const playerContainer = document.getElementById('playerContainer');
         const gameIframe = document.getElementById('gameIframe');
         const activeGameTitle = document.getElementById('activeGameTitle');
+        const creditsOverlay = document.getElementById('creditsOverlay');
 
         function loadGames(gamesToRender) {
             gamesGrid.innerHTML = "";
@@ -150,6 +167,14 @@
                     gameIframe.contentWindow.focus();
                 }, 100);
             };
+        }
+
+        function openCredits() {
+            creditsOverlay.classList.add('active');
+        }
+
+        function closeCredits() {
+            creditsOverlay.classList.remove('active');
         }
 
         function goFullscreen() {
